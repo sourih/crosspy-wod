@@ -1,4 +1,4 @@
-/** Marca de MBARETEFIT WOD: una barra cargada vista de frente. */
+/** Marca de CrossPY WOD: una barra cargada vista de frente. */
 export function BrandMark({ size = 28 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden focusable="false">

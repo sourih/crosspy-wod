@@ -1,5 +1,5 @@
 /**
- * Tipos de dominio de MBARETEFIT WOD.
+ * Tipos de dominio de CrossPY WOD.
  *
  * Todos los pesos viajan como enteros en miligramos (`Mg`). Así 2,5 kg es
  * 2_500_000 y ningún cálculo pasa por decimales binarios: porcentajes, peso

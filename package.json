@@ -1,8 +1,8 @@
 {
-  "name": "mbaretefit-wod",
+  "name": "crosspy-wod",
   "private": true,
   "version": "0.1.0",
-  "description": "MBARETEFIT WOD: calculadora de cargas, porcentajes de RM y discos por lado para atletas y coaches de CrossFit.",
+  "description": "CrossPY WOD: calculadora de cargas, porcentajes de RM y discos por lado para atletas y coaches de CrossFit.",
   "license": "MIT",
   "type": "module",
   "scripts": {

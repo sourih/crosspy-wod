@@ -1,4 +1,4 @@
-# MBARETEFIT WOD
+# CrossPY WOD
 
 **La fuerza está en vos.**
 
@@ -7,7 +7,7 @@ fuerza y qué discos poner en cada lado de la barra, usando el inventario real d
 
 Todos los pesos en kilogramos. Funciona en el celular, sin conexión, y se puede instalar como app (PWA).
 
-**App en vivo:** https://sourih.github.io/mbaretefit-wod/
+**App en vivo:** https://sourih.github.io/crosspy-wod/
 
 ## Qué resuelve
 
@@ -62,8 +62,8 @@ pruebas unitarias, incluida una comparación contra una búsqueda por fuerza bru
 ## Instalación
 
 ```bash
-git clone https://github.com/sourih/mbaretefit-wod.git
-cd mbaretefit-wod
+git clone https://github.com/sourih/crosspy-wod.git
+cd crosspy-wod
 npm install
 ```
 

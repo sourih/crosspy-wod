@@ -15,8 +15,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: 'MBARETEFIT WOD',
-        short_name: 'MBARETEFIT',
+        name: 'CrossPY WOD',
+        short_name: 'CrossPY',
         description:
           'Porcentajes de RM y discos por lado de la barra para atletas y coaches de CrossFit.',
         lang: 'es',

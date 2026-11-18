@@ -3,6 +3,7 @@ import type { BoxSettings, HistoryEntry } from '../../types';
 import { sanitizeHistory, sanitizeSettings } from '../../utils/validation';
 import { readJson, writeJson, type StorageAdapter } from './adapter';
 
+// Las claves conservan el nombre anterior de la app: cambiarlas borraría los datos guardados.
 export const STORAGE_KEYS = {
   settings: 'mbaretefit-wod:configuracion:v1',
   history: 'mbaretefit-wod:historial:v1',

@@ -37,9 +37,9 @@ export function AppShell({ route, children }: Props) {
     <div className="flex min-h-dvh flex-col">
       <header className="z-20 bg-ground md:sticky md:top-[env(safe-area-inset-top,0px)]">
         <div className="mx-auto flex h-[52px] w-full max-w-[1148px] items-center gap-6 px-4 md:h-16 md:px-6">
-          <a href="#inicio" className="flex items-center gap-2.5 rounded-full" aria-label="MBARETEFIT WOD, inicio">
+          <a href="#inicio" className="flex items-center gap-2.5 rounded-full" aria-label="CrossPY WOD, inicio">
             <BrandMark />
-            <span className="text-section font-semibold">MBARETEFIT WOD</span>
+            <span className="text-section font-semibold">CrossPY WOD</span>
           </a>
           <nav aria-label="Principal" className="ml-auto hidden items-center gap-1 md:flex">
             {DESTINATIONS.map((item) => (
