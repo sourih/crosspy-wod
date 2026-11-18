@@ -7,7 +7,7 @@ fuerza y qué discos poner en cada lado de la barra, usando el inventario real d
 
 Todos los pesos en kilogramos. Funciona en el celular, sin conexión, y se puede instalar como app (PWA).
 
-**App en vivo:** https://sourih.github.io/crosspy-wod/
+**App en vivo:** https://crosspy-wod.crosspy.workers.dev
 
 ## Qué resuelve
 
@@ -80,6 +80,10 @@ npm install
 | `npm run check` | Tipos + lint + pruebas |
 
 ## Despliegue
+
+La app se publica en **Cloudflare Workers**, conectado a este repo: cada push a `main` se compila y
+se publica solo en https://crosspy-wod.crosspy.workers.dev, y cada PR recibe su propio link de vista
+previa. La configuración está en [`wrangler.jsonc`](wrangler.jsonc).
 
 `npm run build` deja todo en `dist/`. El build usa rutas relativas y navegación por hash, así que se
 puede servir desde cualquier carpeta: GitHub Pages, Netlify, Vercel, Cloudflare Pages o un hosting
