@@ -5,7 +5,7 @@
 Calculadora de cargas para atletas y coaches de CrossFit: porcentajes de RM, tabla completa de
 fuerza y qué discos poner en cada lado de la barra, usando el inventario real del box.
 
-Funciona en el celular, sin conexión, y se puede instalar como app (PWA).
+Todos los pesos en kilogramos. Funciona en el celular, sin conexión, y se puede instalar como app (PWA).
 
 **App en vivo:** https://sourih.github.io/mbaretefit-wod/
 
@@ -32,8 +32,8 @@ porcentajes se agregan, se editan y se quitan.
 
 **Plate Calculator.** Armá la barra a mano con los discos del box y mirá cuánto pesa.
 
-**Configuración.** Inventario real de cada disco, barras disponibles, porcentajes predeterminados y
-unidad de medida. Todo se guarda solo y se puede restaurar.
+**Configuración.** Inventario real de cada disco, barras disponibles y porcentajes predeterminados.
+Todo se guarda solo y se puede restaurar.
 
 **Historial.** Los cálculos guardados, con filtro por módulo. Tocar uno lo vuelve a abrir en su
 módulo con los datos cargados.
@@ -123,7 +123,6 @@ vite-plugin-pwa y LocalStorage.
 
 ## Roadmap
 
-- Libras además de kilogramos.
 - Inventario por estación (varias barras cargadas a la vez).
 - Historial con nombre de atleta y exportación.
 - Cuentas y sincronización entre dispositivos (Supabase o Firebase), sobre el mismo motor de cálculo.
