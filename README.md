@@ -56,7 +56,7 @@ pruebas unitarias, incluida una comparación contra una búsqueda por fuerza bru
 
 ## Requisitos
 
-- Node.js 20.19 o superior (Vite 8).
+- Node.js 22.19 o superior (recomendado: 24, ver `.nvmrc`).
 - npm 10 o superior.
 
 ## Instalación
