@@ -23,12 +23,12 @@ const LOOKS = new Map<Mg, PlateLook>([
   [kg(25), { height: 120, thin: false, fill: '#d93a3a', ink: '#ffffff' }],
   [kg(20), { height: 108, thin: false, fill: '#2f6fdb', ink: '#ffffff' }],
   [kg(15), { height: 96, thin: false, fill: '#f2c230', ink: '#111111' }],
-  [kg(10), { height: 84, thin: false, fill: '#2e9e5b', ink: '#ffffff' }],
+  [kg(10), { height: 84, thin: false, fill: '#1f7a43', ink: '#ffffff' }],
   [kg(5), { height: 70, thin: false, fill: '#e8e8e8', ink: '#111111' }],
   [kg(2.5), { height: 50, thin: true, fill: '#050505', ink: '#ffffff', edge: '#8a8a8a' }],
   [kg(2), { height: 46, thin: true, fill: '#2f6fdb', ink: '#ffffff' }],
   [kg(1.5), { height: 43, thin: true, fill: '#f2c230', ink: '#111111' }],
-  [kg(1), { height: 40, thin: true, fill: '#2e9e5b', ink: '#ffffff' }],
+  [kg(1), { height: 40, thin: true, fill: '#1f7a43', ink: '#ffffff' }],
   [kg(0.5), { height: 34, thin: true, fill: '#e8e8e8', ink: '#111111' }],
 ]);
 

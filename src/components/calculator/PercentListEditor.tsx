@@ -37,7 +37,7 @@ function Item({
           if (event.key === 'Enter') event.currentTarget.blur();
         }}
         inputMode="decimal"
-        aria-label={`Porcentaje ${formatPercent(value)}`}
+        aria-label="Porcentaje"
         className="num w-full min-w-0 bg-transparent text-section outline-none"
       />
       <span className="text-body text-muted">%</span>
@@ -46,7 +46,7 @@ function Item({
         onClick={onRemove}
         disabled={!removable}
         aria-label={`Quitar ${formatPercent(value)} %`}
-        className="grid size-11 flex-none place-items-center rounded-full text-muted hover:text-ink disabled:text-control"
+        className="grid size-11 flex-none place-items-center rounded-full text-muted hover:text-ink disabled:opacity-40"
       >
         <X size={16} aria-hidden />
       </button>
@@ -57,13 +57,31 @@ function Item({
 /** Lista editable de porcentajes: cada uno se modifica en su lugar, se quita o se agrega uno nuevo. */
 export function PercentListEditor({ label, values, onChange }: Props) {
   const [draft, setDraft] = useState('');
+  const [removed, setRemoved] = useState<PercentTenths | null>(null);
   const parsed = parsePercent(draft);
-  const canAdd = parsed !== null && isValidPercent(parsed) && !values.includes(parsed);
+  const valid = parsed !== null && isValidPercent(parsed);
+  const canAdd = valid && !values.includes(parsed);
+  let addError: string | null = null;
+  if (draft.trim() !== '' && !canAdd) {
+    addError = valid
+      ? `El ${formatPercent(parsed)} % ya está en la lista.`
+      : 'Ingresá un porcentaje entre 1 y 200, con un decimal como máximo.';
+  }
 
   const add = () => {
     if (!canAdd || parsed === null) return;
     onChange(normalizePercentages([...values, parsed]));
     setDraft('');
+  };
+
+  const remove = (value: PercentTenths) => {
+    onChange(values.filter((item) => item !== value));
+    setRemoved(value);
+  };
+
+  const undo = () => {
+    if (removed !== null) onChange(normalizePercentages([...values, removed]));
+    setRemoved(null);
   };
 
   return (
@@ -75,7 +93,7 @@ export function PercentListEditor({ label, values, onChange }: Props) {
             key={value}
             value={value}
             removable={values.length > 1}
-            onRemove={() => onChange(values.filter((item) => item !== value))}
+            onRemove={() => remove(value)}
             onCommit={(next) =>
               onChange(normalizePercentages(values.map((item) => (item === value ? next : item))))
             }
@@ -99,12 +117,28 @@ export function PercentListEditor({ label, values, onChange }: Props) {
             onClick={add}
             disabled={!canAdd}
             aria-label="Agregar porcentaje"
-            className="grid size-11 flex-none place-items-center rounded-full text-ink disabled:text-control"
+            className="grid size-11 flex-none place-items-center rounded-full text-ink disabled:opacity-40"
           >
             <Plus size={16} aria-hidden />
           </button>
         </li>
       </ul>
+      <div role="status" className="mt-2 min-h-5 text-small">
+        {addError ? (
+          <span className="text-negative">{addError}</span>
+        ) : removed !== null && !values.includes(removed) ? (
+          <span className="inline-flex items-center gap-2 text-muted">
+            Quitaste el {formatPercent(removed)} %.
+            <button
+              type="button"
+              onClick={undo}
+              className="min-h-11 font-medium text-ink underline underline-offset-4"
+            >
+              Deshacer
+            </button>
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 }
