@@ -1,7 +1,6 @@
 import { ChevronRight } from 'lucide-react';
-import { PageHeader } from '../../components/layout/PageHeader';
 import { Barbell } from '../../components/plates/Barbell';
-import { plateLook } from '../../components/plates/plateLook';
+import { PlateSwatch } from '../../components/plates/PlateSwatch';
 import { PlateChips } from '../../components/plates/PlateChips';
 import { Button } from '../../components/ui/Button';
 import { Panel, PanelTitle } from '../../components/ui/Panel';
@@ -10,7 +9,10 @@ import { useOpenEntry } from '../../hooks/useOpenEntry';
 import { calculateLoad, maxLoad } from '../../services/calc/plates';
 import type { RouteId } from '../../types';
 import { describeEntry, formatWhen, MODULE_NAMES } from '../../utils/labels';
-import { formatKg, formatLoad } from '../../utils/weight';
+import { formatKg, formatLoad, kg } from '../../utils/weight';
+
+/** Carga de ejemplo de la portada: 100 kg se arma con casi cualquier box. */
+const EXAMPLE_TARGET = kg(100);
 
 const MODULES: Array<{ route: RouteId; name: string; does: string }> = [
   { route: 'rm', name: 'Calculadora RM', does: 'Un porcentaje de tu RM y sus discos por lado.' },
@@ -30,6 +32,8 @@ export function HomePage({ navigate }: { navigate(route: RouteId): void }) {
       : null;
   const totalPlates = settings.inventory.reduce((sum, item) => sum + item.quantity, 0);
   const mainBar = settings.bars[0];
+  const exampleLoad =
+    !last && mainBar ? calculateLoad({ target: EXAMPLE_TARGET, bar: mainBar.weight, stock, limit: 1 }) : null;
 
   const modules = (wide = false) => (
     <ul className={wide ? 'md:grid md:grid-cols-3 md:gap-x-6' : undefined}>
@@ -58,9 +62,19 @@ export function HomePage({ navigate }: { navigate(route: RouteId): void }) {
       <dl className="mt-3 grid grid-cols-3 gap-0.5 overflow-hidden rounded-inner">
         <div className="bg-raised px-3 py-2.5">
           <dt className="text-small text-muted">Barras</dt>
-          <dd className="num mt-0.5 text-figure font-semibold">
-            {settings.bars.map((bar) => formatKg(bar.weight)).join(' · ')}
-            <span className="pl-1 text-body font-normal text-muted">kg</span>
+          <dd
+            className={`num mt-0.5 font-semibold whitespace-nowrap ${
+              settings.bars.length === 2 ? 'text-section leading-7 md:text-figure' : 'text-figure'
+            }`}
+          >
+            {settings.bars.length > 2 ? (
+              settings.bars.length
+            ) : (
+              <>
+                {settings.bars.map((bar) => formatKg(bar.weight)).join(' · ')}
+                <span className="pl-1 text-body font-normal text-muted">kg</span>
+              </>
+            )}
           </dd>
         </div>
         <div className="bg-raised px-3 py-2.5">
@@ -79,18 +93,9 @@ export function HomePage({ navigate }: { navigate(route: RouteId): void }) {
       <ul className={`grid gap-x-6 ${wide ? 'grid-cols-2 md:grid-cols-5' : 'grid-cols-2'}`}>
         {settings.inventory.map((item) => {
           const pairs = Math.floor(item.quantity / 2);
-          const look = plateLook(item.weight);
           return (
             <li key={item.weight} className="flex h-9 items-center gap-2">
-              <span
-                aria-hidden
-                className="flex-none rounded-[2px]"
-                style={{
-                  width: look.thin ? 4 : 7,
-                  height: Math.round(look.height / 5),
-                  background: look.fill,
-                }}
-              />
+              <PlateSwatch weight={item.weight} scale={1 / 5} />
               <span className="num flex-1 text-body">{formatKg(item.weight)} kg</span>
               <span className="num text-body text-muted">
                 {pairs === 0 ? '—' : `${pairs} ${pairs === 1 ? 'par' : 'pares'}`}
@@ -102,33 +107,49 @@ export function HomePage({ navigate }: { navigate(route: RouteId): void }) {
     </Panel>
   );
 
-  // Primer uso: sin cálculos guardados, los módulos ocupan el lugar del resultado.
+  // El titular de la marca. En el primer uso además carga la barra con un
+  // ejemplo armado con los discos reales del box.
+  const hero = (
+    <header className="pt-6 pb-6 md:pt-10 md:pb-8">
+      <h1 className="text-[40px] leading-[42px] font-bold tracking-[-0.03em] text-balance md:text-[56px] md:leading-[56px]">
+        La fuerza está en vos.
+      </h1>
+      <p className="mt-3 max-w-[46ch] text-section text-muted">
+        Tu carga del día y qué discos poner en cada lado, con lo que hay de verdad en tu box.
+      </p>
+    </header>
+  );
+
+  // Primer uso: sin cálculos guardados, la barra de ejemplo ocupa el lugar del resultado.
   if (!last) {
     return (
       <>
-        <PageHeader title="Inicio" summary="La fuerza está en vos." />
+        {hero}
         <div className="grid gap-[14px]">
           <Panel>
-            <div className="grid items-start gap-6 md:grid-cols-12">
-              <div className="md:col-span-5">
+            <div className="grid items-center gap-6 md:grid-cols-12">
+              <div className="md:col-span-7 md:order-2">
+                {mainBar && (
+                  <Barbell bar={mainBar.weight} combination={exampleLoad?.status === 'exact' ? exampleLoad.combinations[0] ?? [] : []} />
+                )}
+                {exampleLoad?.status === 'exact' && (
+                  <p className="num mt-3 text-center text-body text-muted">
+                    Así se ve el <span className="font-semibold text-accent">{formatKg(EXAMPLE_TARGET)} kg</span> con
+                    tus discos: {formatKg(exampleLoad.perSide)} kg por lado.
+                  </p>
+                )}
+              </div>
+              <div className="md:col-span-5 md:order-1">
                 <PanelTitle>Empezá por tu RM</PanelTitle>
                 <p className="mt-1 text-body text-muted">
-                  Ingresá tu máximo y la app te dice la carga del día y qué discos poner en cada
-                  lado, con los que hay de verdad en tu box.
+                  Ingresá tu máximo, elegí el porcentaje y listo.
                 </p>
-                <Button variant="primary" className="mt-4" onClick={() => navigate('rm')}>
+                <Button variant="primary" className="mt-4 w-full md:w-auto" onClick={() => navigate('rm')}>
                   Calcular con mi RM
                 </Button>
               </div>
-              <div className="md:col-span-7">
-                {mainBar && <Barbell bar={mainBar.weight} combination={[]} />}
-                <p className="num mt-2 text-body text-muted">
-                  La barra sola pesa {mainBar ? formatKg(mainBar.weight) : '—'} kg. Cada módulo te
-                  dibuja los discos que van de cada lado.
-                </p>
-              </div>
             </div>
-            <div className="mt-2">{modules(true)}</div>
+            <div className="mt-4">{modules(true)}</div>
           </Panel>
           {box(true)}
         </div>
@@ -138,7 +159,7 @@ export function HomePage({ navigate }: { navigate(route: RouteId): void }) {
 
   return (
     <>
-      <PageHeader title="Inicio" summary="La fuerza está en vos." />
+      {hero}
       {/* 12 columnas, separación 14: 7 + 5 */}
       <div className="grid items-start gap-[14px] md:grid-cols-12">
         <div className="grid gap-[14px] md:col-span-7">

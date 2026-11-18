@@ -65,12 +65,14 @@ export function HistoryPage({ navigate }: { navigate(route: RouteId): void }) {
               aria-checked={selected}
               onClick={() => setFilter(item.id)}
               className={`h-[61px] rounded-inner px-3 text-left transition-colors ${
-                selected
-                  ? 'bg-accent-soft outline-[1.5px] -outline-offset-[1.5px] outline-accent'
-                  : 'bg-surface'
+                selected ? 'bg-ink text-ground' : 'bg-surface text-ink'
               }`}
             >
-              <span className="block text-[13px] leading-[18px] text-muted">{item.label}</span>
+              <span
+                className={`block text-[13px] leading-[18px] ${selected ? 'text-ground/70' : 'text-muted'}`}
+              >
+                {item.label}
+              </span>
               <span className="num block text-section font-semibold">{countOf(item.id)}</span>
             </button>
           );

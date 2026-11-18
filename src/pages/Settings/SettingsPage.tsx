@@ -2,7 +2,7 @@ import { X } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { PercentListEditor } from '../../components/calculator/PercentListEditor';
 import { PageHeader } from '../../components/layout/PageHeader';
-import { plateLook } from '../../components/plates/plateLook';
+import { PlateSwatch } from '../../components/plates/PlateSwatch';
 import { Button } from '../../components/ui/Button';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { Field } from '../../components/ui/Field';
@@ -96,21 +96,11 @@ export function SettingsPage() {
       >
         <ul className="md:grid md:grid-cols-2 md:gap-x-6">
           {settings.inventory.map((item) => {
-            const look = plateLook(item.weight);
             const pairs = Math.floor(item.quantity / 2);
             const spare = item.quantity % 2 === 1;
             return (
               <li key={item.weight} className="flex h-[56px] items-center gap-3">
-                <span className="grid w-3 flex-none place-items-center" aria-hidden>
-                  <span
-                    className="rounded-[2px]"
-                    style={{
-                      width: look.thin ? 5 : 9,
-                      height: Math.round(look.height / 3.6),
-                      background: look.fill,
-                    }}
-                  />
-                </span>
+                <PlateSwatch weight={item.weight} />
                 <span className="min-w-0 flex-1">
                   <span className="num block truncate text-section font-semibold">
                     {formatKg(item.weight)}

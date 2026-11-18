@@ -3,7 +3,7 @@ import { LoadStats } from '../../components/calculator/LoadStats';
 import { PageHeader } from '../../components/layout/PageHeader';
 import { Barbell } from '../../components/plates/Barbell';
 import { PlateChips } from '../../components/plates/PlateChips';
-import { plateLook } from '../../components/plates/plateLook';
+import { PlateSwatch } from '../../components/plates/PlateSwatch';
 import { Button } from '../../components/ui/Button';
 import { SaveToHistory } from '../../components/calculator/SaveToHistory';
 import { Panel, PanelTitle } from '../../components/ui/Panel';
@@ -91,20 +91,9 @@ export function PlateCalculatorPage() {
             {settings.inventory.map((item) => {
               const pairs = pairsOf(item.weight);
               const count = Math.min(drafts.discos.counts[String(item.weight)] ?? 0, pairs);
-              const look = plateLook(item.weight);
               return (
                 <li key={item.weight} className="flex h-[56px] items-center gap-3">
-                  <span className="grid w-3 flex-none place-items-center" aria-hidden>
-                    <span
-                      className="rounded-[2px]"
-                      style={{
-                        width: look.thin ? 5 : 9,
-                        height: Math.round(look.height / 3.6),
-                        background: look.fill,
-                        boxShadow: look.edge ? `inset 0 0 0 1px ${look.edge}` : undefined,
-                      }}
-                    />
-                  </span>
+                  <PlateSwatch weight={item.weight} />
                   <span className="min-w-0 flex-1">
                     <span className="num block truncate text-section font-semibold">
                       {formatKg(item.weight)}

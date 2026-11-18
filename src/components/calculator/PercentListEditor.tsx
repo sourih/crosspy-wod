@@ -87,7 +87,7 @@ export function PercentListEditor({ label, values, onChange }: Props) {
   return (
     <div>
       <p className="mb-2 text-body font-medium">{label}</p>
-      <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+      <ul className="grid grid-cols-2 gap-2 min-[400px]:grid-cols-3 sm:grid-cols-4">
         {values.map((value) => (
           <Item
             key={value}

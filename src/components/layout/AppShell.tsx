@@ -68,7 +68,12 @@ export function AppShell({ route, children }: Props) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-[1148px] flex-1 px-4 pb-28 md:px-6 md:pb-16">{children}</main>
+      <main className="mx-auto w-full max-w-[1148px] flex-1 px-4 pb-10 md:px-6 md:pb-12">{children}</main>
+
+      {/* Firma. En el celular deja lugar para la barra inferior. */}
+      <footer className="mx-auto w-full max-w-[1148px] px-4 pb-28 text-center text-small text-muted md:px-6 md:pb-10 md:text-left">
+        Hecho por <span className="font-semibold text-ink">Hiro</span> · CrossPY WOD
+      </footer>
 
       <nav
         aria-label="Módulos"
