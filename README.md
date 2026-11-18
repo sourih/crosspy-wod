@@ -7,6 +7,8 @@ fuerza y qué discos poner en cada lado de la barra, usando el inventario real d
 
 Funciona en el celular, sin conexión, y se puede instalar como app (PWA).
 
+**App en vivo:** https://sourih.github.io/mbaretefit-wod/
+
 ## Qué resuelve
 
 Durante una clase no hay tiempo para hacer cuentas. La app responde en dos toques:
