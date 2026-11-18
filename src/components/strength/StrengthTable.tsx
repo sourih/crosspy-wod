@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import type { PlateStock, StrengthRow } from '../../types';
-import { formatHalfKg, formatKg, formatPercent, formatSignedKg } from '../../utils/weight';
+import { formatKg, formatLoad, formatPercent, formatSignedLoad } from '../../utils/weight';
 import { LoadDetail } from '../calculator/LoadDetail';
 import { PlateChips } from '../plates/PlateChips';
 import { Pill } from '../ui/Pill';
@@ -12,7 +12,7 @@ const COLUMNS = 'md:grid-cols-[64px_112px_112px_minmax(0,1fr)_168px_20px]';
 
 function perSideText(row: StrengthRow): string | null {
   if (row.load.status === 'exact') return formatKg(row.load.perSide);
-  if (row.load.status === 'approximate') return formatHalfKg(row.load.platesTotal);
+  if (row.load.status === 'approximate') return formatLoad(row.load.platesTotal / 2);
   return null;
 }
 
@@ -22,7 +22,7 @@ function Plates({ row }: { row: StrengthRow }) {
   if (load.status === 'approximate') {
     const parts = [load.below, load.above]
       .filter((option) => option !== null)
-      .map((option) => `${formatKg(option.total)} kg (${formatSignedKg(option.difference)})`);
+      .map((option) => `${formatKg(option.total)} kg (${formatSignedLoad(option.difference)})`);
     return <p className="num text-body text-muted">Más cercanas: {parts.join(' · ')}</p>;
   }
   return <p className="text-body text-muted">No alcanza el peso de la barra.</p>;
@@ -85,7 +85,7 @@ export function StrengthTable({ rows, stock }: Props) {
                   <span className="flex items-baseline justify-between gap-3">
                     <span className="num text-section font-semibold">{formatPercent(row.percent)} %</span>
                     <span className="num text-section font-semibold">
-                      {formatKg(row.target)}
+                      {formatLoad(row.target)}
                       <span className="pl-1 text-body font-normal text-muted">kg</span>
                     </span>
                   </span>
@@ -112,7 +112,7 @@ export function StrengthTable({ rows, stock }: Props) {
                 <span className={`hidden items-center gap-4 md:grid ${COLUMNS}`}>
                   <span className="num text-section font-semibold">{formatPercent(row.percent)} %</span>
                   <span className="num text-right text-section font-semibold">
-                    {formatKg(row.target)}
+                    {formatLoad(row.target)}
                     <span className="pl-1 text-body font-normal text-muted">kg</span>
                   </span>
                   <span className="num text-right text-section">

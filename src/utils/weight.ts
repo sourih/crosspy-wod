@@ -39,6 +39,18 @@ export const formatKg = (value: Mg): string => formatScaled(value, 6);
 /** La mitad exacta de un peso (peso por lado), aunque el peso sea impar en mg. */
 export const formatHalfKg = (value: Mg): string => formatScaled(value * 5, 7);
 
+/**
+ * Una carga calculada (un % de un RM) para mostrar: redondeada a 2 decimales
+ * como máximo, porque en el box nadie carga 63,32875 kg. 63_328_750 → "63,33".
+ * El cálculo de discos sigue usando el valor exacto.
+ */
+export const formatLoad = (value: Mg): string => formatScaled(Math.round(value / 10_000), 2);
+
+/** Diferencia de una carga calculada, redondeada como formatLoad: "+0,67" o "−0,33". */
+export function formatSignedLoad(value: Mg): string {
+  return value > 0 ? `+${formatLoad(value)}` : formatLoad(value);
+}
+
 /** Diferencia con signo explícito: "+0,5" o "−0,5". */
 export function formatSignedKg(value: Mg): string {
   return value > 0 ? `+${formatKg(value)}` : formatKg(value);

@@ -10,7 +10,7 @@ import { useOpenEntry } from '../../hooks/useOpenEntry';
 import { calculateLoad, maxLoad } from '../../services/calc/plates';
 import type { RouteId } from '../../types';
 import { describeEntry, formatWhen, MODULE_NAMES } from '../../utils/labels';
-import { formatKg } from '../../utils/weight';
+import { formatKg, formatLoad } from '../../utils/weight';
 
 const MODULES: Array<{ route: RouteId; name: string; does: string }> = [
   { route: 'rm', name: 'Calculadora RM', does: 'Un porcentaje de tu RM y sus discos por lado.' },
@@ -202,7 +202,7 @@ export function HomePage({ navigate }: { navigate(route: RouteId): void }) {
                         </span>
                       </span>
                       <span className="num flex-none text-section font-semibold">
-                        {formatKg(entry.target)}
+                        {formatLoad(entry.target)}
                         <span className="pl-1 text-body font-normal text-muted">kg</span>
                       </span>
                     </button>

@@ -7,7 +7,7 @@ import { useAppData } from '../../hooks/appDataContext';
 import { useOpenEntry } from '../../hooks/useOpenEntry';
 import type { CalculationType, RouteId } from '../../types';
 import { describeEntry, formatWhen, MODULE_NAMES } from '../../utils/labels';
-import { formatKg } from '../../utils/weight';
+import { formatKg, formatLoad } from '../../utils/weight';
 
 type Filter = 'todos' | CalculationType;
 
@@ -100,7 +100,7 @@ export function HistoryPage({ navigate }: { navigate(route: RouteId): void }) {
                     </span>
                   </span>
                   <span className="num flex-none text-section font-semibold">
-                    {formatKg(entry.target)}
+                    {formatLoad(entry.target)}
                     <span className="pl-1 text-body font-normal text-muted">kg</span>
                   </span>
                 </button>

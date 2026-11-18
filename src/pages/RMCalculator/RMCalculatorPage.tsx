@@ -14,13 +14,13 @@ import { percentOf } from '../../services/calc/percentage';
 import { calculateLoad, maxLoad } from '../../services/calc/plates';
 import type { LoadResult } from '../../types';
 import { validateReference } from '../../utils/validation';
-import { formatKg, formatPercent } from '../../utils/weight';
+import { formatKg, formatLoad, formatPercent } from '../../utils/weight';
 
 /** Lo que dice la barra fija y el anuncio para lectores de pantalla. */
 function spokenResult(result: LoadResult, target: number): string {
   if (result.status === 'invalid') return 'La carga es menor que la barra.';
-  if (result.status === 'approximate') return `${formatKg(target)} kilos no se pueden armar exactos.`;
-  return `Carga objetivo ${formatKg(target)} kilos, ${formatKg(result.perSide)} por lado.`;
+  if (result.status === 'approximate') return `${formatLoad(target)} kilos no se pueden armar exactos.`;
+  return `Carga objetivo ${formatLoad(target)} kilos, ${formatKg(result.perSide)} por lado.`;
 }
 
 /**
@@ -33,12 +33,12 @@ function StickyResult({ result, target }: { result: LoadResult; target: number }
     <div className="sticky top-[env(safe-area-inset-top,0px)] z-10 -mx-4 mb-[14px] border-b border-raised bg-ground px-4 py-2.5 md:hidden">
       <div className="flex items-center gap-3">
         <p className="num flex-none text-figure font-semibold text-accent">
-          {formatKg(target)}
+          {formatLoad(target)}
           <span className="pl-1 text-body font-normal text-muted">kg</span>
         </p>
         <div className="min-w-0 flex-1">
           {result.status === 'exact' ? (
-            <div className="flex items-center gap-2 overflow-x-auto">
+            <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&_ul]:flex-nowrap">
               <span className="flex-none text-small text-muted">Por lado</span>
               <PlateChips combination={result.combinations[0] ?? []} />
             </div>
@@ -86,7 +86,7 @@ export function RMCalculatorPage() {
         {result && target !== null ? spokenResult(result, target) : ''}
       </p>
       {/* 12 columnas, separación 14: 5 + 7 */}
-      <div className="grid items-start gap-[14px] md:grid-cols-12">
+      <div className="grid grid-cols-1 items-start gap-[14px] md:grid-cols-12">
         <Panel className="flex flex-col gap-6 md:col-span-5 md:h-full" aria-label="Datos">
           <Field
             label="RM de referencia"
@@ -131,13 +131,13 @@ export function RMCalculatorPage() {
           ) : (
             <>
               <p className="num mt-2 text-answer font-semibold text-accent">
-                {formatKg(target)}
+                {formatLoad(target)}
                 <span className="pl-1.5 text-section font-normal text-muted">kg</span>
               </p>
               <div className="mt-4">
                 <LoadStats
                   bar={bar.weight}
-                  platesTotal={result.status === 'invalid' ? null : target - bar.weight}
+                  platesTotal={result.status === 'exact' ? target - bar.weight : null}
                 />
               </div>
               <div className="mt-5">

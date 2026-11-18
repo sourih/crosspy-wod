@@ -39,7 +39,11 @@ function pickSizing(weights: Mg[], available: number): Sizing {
     );
     if (2 * side + SHAFT_MIN + ENDS <= available) return sizing;
   }
-  return SIZINGS[SIZINGS.length - 1]!;
+  // Ni el tamaño mínimo entra (cargas enormes): se reparte el ancho que hay
+  // para que el dibujo nunca desborde la pantalla.
+  const units = weights.reduce((sum, weight) => sum + (plateLook(weight).thin ? 2 : 3), 0);
+  const unit = Math.max(0.5, (available - SHAFT_MIN - ENDS) / 2 / Math.max(1, units));
+  return { disc: unit * 3, thin: unit * 2, gap: 0, discLabel: 'none', thinLabel: 'none' };
 }
 
 /**
@@ -67,7 +71,9 @@ export function Barbell({ bar, combination, compact = false }: Props) {
           return (
             <div
               key={`${weight}-${index}`}
-              className="relative grid flex-none place-items-center overflow-hidden rounded-[4px]"
+              className={`relative grid flex-none place-items-center overflow-hidden ${
+                sizing.gap === 0 ? 'rounded-[1px]' : 'rounded-[4px]'
+              }`}
               style={{
                 width: look.thin ? sizing.thin : sizing.disc,
                 height: Math.round(look.height * scale),

@@ -2,7 +2,7 @@ import { Check, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { combinationKey, combinationPlateCount, maxLoad } from '../../services/calc/plates';
 import type { Combination, LoadResult, Mg, NearestLoad, PlateStock } from '../../types';
-import { formatKg, formatSignedKg } from '../../utils/weight';
+import { formatKg, formatLoad, formatSignedLoad } from '../../utils/weight';
 import { Barbell } from '../plates/Barbell';
 import { PlateChips } from '../plates/PlateChips';
 
@@ -94,7 +94,7 @@ function NearestOption({ title, load, bar }: { title: string; load: NearestLoad;
     <div className="rounded-inner bg-raised p-3">
       <div className="flex items-baseline justify-between gap-3">
         <p className="text-body font-medium">{title}</p>
-        <p className="num text-body text-muted">{formatSignedKg(load.difference)} kg</p>
+        <p className="num text-body text-muted">{formatSignedLoad(load.difference)} kg</p>
       </div>
       <p className="num mt-1 text-figure font-semibold">
         {formatKg(load.total)}
@@ -124,7 +124,7 @@ export function LoadDetail({ result, stock }: Props) {
     return (
       <p className="text-body text-muted">
         {result.reason === 'objetivo-menor-que-barra'
-          ? `La carga objetivo (${formatKg(result.target)} kg) es menor que la barra de ${formatKg(result.bar)} kg. Subí el porcentaje o usá una barra más liviana.`
+          ? `La carga objetivo (${formatLoad(result.target)} kg) es menor que la barra de ${formatKg(result.bar)} kg. Subí el porcentaje o usá una barra más liviana.`
           : 'Revisá los datos ingresados.'}
       </p>
     );
@@ -135,10 +135,10 @@ export function LoadDetail({ result, stock }: Props) {
     return (
       <div>
         <p className="text-body text-muted">
-          Con tu inventario no se puede armar {formatKg(target)} kg exactos. Estas son las cargas más
+          Con tu inventario no se puede armar {formatLoad(target)} kg exactos. Estas son las cargas más
           cercanas:
         </p>
-        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
           {below && <NearestOption title="Más cercana por debajo" load={below} bar={bar} />}
           {above ? (
             <NearestOption title="Más cercana por encima" load={above} bar={bar} />

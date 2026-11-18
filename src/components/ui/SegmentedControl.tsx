@@ -18,7 +18,15 @@ export function SegmentedControl<T extends string | number>({
   onChange,
 }: Props<T>) {
   return (
-    <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-1 rounded-[26px] bg-raised p-1">
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className={
+        options.length > 4
+          ? 'grid grid-cols-3 gap-1 rounded-[26px] bg-raised p-1'
+          : 'flex flex-wrap gap-1 rounded-[26px] bg-raised p-1'
+      }
+    >
       {options.map((option) => {
         const selected = option.value === value;
         return (
