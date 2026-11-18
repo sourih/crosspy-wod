@@ -216,17 +216,6 @@ export function SettingsPage() {
       </Section>
 
       <Section
-        title="Unidad de medida"
-        description="Todos los pesos se ingresan y se muestran en esta unidad."
-      >
-        <p className="flex h-12 items-center justify-between rounded-inner bg-raised px-4">
-          <span className="text-section font-semibold">Kilogramos</span>
-          <span className="text-body text-muted">kg</span>
-        </p>
-        <p className="mt-2 text-small text-muted">Libras todavía no está disponible en esta versión.</p>
-      </Section>
-
-      <Section
         title="Restaurar valores predeterminados"
         description="Vuelve a las barras, el inventario y los porcentajes con los que viene la app. El historial no se borra."
       >
