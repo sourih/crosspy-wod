@@ -31,6 +31,7 @@ export function PlateChips({ combination, onRaised = false }: Props) {
                 width: look.thin ? 4 : 7,
                 height: Math.round(look.height / 6),
                 background: look.fill,
+                boxShadow: look.edge ? `inset 0 0 0 1px ${look.edge}` : undefined,
               }}
             />
             <span>

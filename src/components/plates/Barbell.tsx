@@ -73,6 +73,7 @@ export function Barbell({ bar, combination, compact = false }: Props) {
                 height: Math.round(look.height * scale),
                 background: look.fill,
                 color: look.ink,
+                boxShadow: look.edge ? `inset 0 0 0 1px ${look.edge}` : undefined,
               }}
             >
               {mode !== 'none' && !compact && (
