@@ -1,0 +1,13 @@
+// Publicación en Cloudflare Workers: sirve la app estática que deja `npm run build`.
+// La navegación es por hash, así que no hace falta reescribir rutas.
+{
+  "name": "crosspy-wod",
+  "compatibility_date": "2026-11-01",
+  // El link público crosspy-wod.<subdominio>.workers.dev queda siempre activo.
+  "workers_dev": true,
+  // Cada PR recibe su propio link de vista previa.
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist"
+  }
+}
