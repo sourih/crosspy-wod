@@ -2,9 +2,9 @@ import type { CalculationType, Combination, HistoryEntry, RouteId } from '../typ
 import { formatKg, formatPercent } from './weight';
 
 export const MODULE_NAMES: Record<CalculationType, string> = {
-  rm: 'RM Calculator',
+  rm: 'Calculadora RM',
   strength: 'Strength',
-  discos: 'Plate Calculator',
+  discos: 'Calculadora de discos',
 };
 
 export const MODULE_ROUTES: Record<CalculationType, RouteId> = {

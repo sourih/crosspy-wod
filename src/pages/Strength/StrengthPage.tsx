@@ -114,7 +114,7 @@ export function StrengthPage() {
 
       <section className="mt-6" aria-label="Tabla de porcentajes">
         {weight === null ? (
-          <p className="rounded-inner px-4 py-6 text-body text-muted outline-1 -outline-offset-1 outline-control outline-dashed">
+          <p className="rounded-inner px-4 py-6 text-body text-pretty text-muted outline-1 -outline-offset-1 outline-control outline-dashed">
             Ingresá un peso de referencia para armar la tabla.
           </p>
         ) : (

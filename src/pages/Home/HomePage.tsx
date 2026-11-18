@@ -13,9 +13,9 @@ import { describeEntry, formatWhen, MODULE_NAMES } from '../../utils/labels';
 import { formatKg } from '../../utils/weight';
 
 const MODULES: Array<{ route: RouteId; name: string; does: string }> = [
-  { route: 'rm', name: 'RM Calculator', does: 'Un porcentaje de tu RM y sus discos por lado.' },
+  { route: 'rm', name: 'Calculadora RM', does: 'Un porcentaje de tu RM y sus discos por lado.' },
   { route: 'strength', name: 'Strength', does: 'La tabla completa de porcentajes de un peso.' },
-  { route: 'discos', name: 'Plate Calculator', does: 'Armá la barra a mano y mirá cuánto pesa.' },
+  { route: 'discos', name: 'Calculadora de discos', does: 'Armá la barra a mano y mirá cuánto pesa.' },
 ];
 
 export function HomePage({ navigate }: { navigate(route: RouteId): void }) {

@@ -199,11 +199,11 @@ export function SettingsPage() {
 
       <Section
         title="Porcentajes predeterminados"
-        description="Los accesos rápidos de RM Calculator y las filas de la tabla de Strength. Tocá un valor para cambiarlo."
+        description="Los accesos rápidos de Calculadora RM y las filas de la tabla de Strength. Tocá un valor para cambiarlo."
       >
         <div className="grid gap-6">
           <PercentListEditor
-            label="Rápidos de RM Calculator"
+            label="Rápidos de Calculadora RM"
             values={settings.rmPercentages}
             onChange={(values) => change((current) => ({ ...current, rmPercentages: values }))}
           />

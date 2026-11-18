@@ -23,7 +23,7 @@ function Alternatives({
   const [showAll, setShowAll] = useState(false);
   const count = combinations.length - 1;
   if (count < 1) {
-    return <p className="mt-4 text-small text-muted">Es la única combinación exacta con tu inventario.</p>;
+    return <p className="mt-4 text-body text-muted">Es la única combinación exacta con tu inventario.</p>;
   }
   const visible = showAll ? combinations : combinations.slice(0, PAGE + 1);
   return (

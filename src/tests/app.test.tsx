@@ -17,7 +17,7 @@ const stat = (label: string): string => {
   return term?.nextElementSibling?.textContent ?? '';
 };
 
-describe('RM Calculator', () => {
+describe('Calculadora RM', () => {
   it('calcula el ejemplo del brief: 75 % de 100 kg con barra de 20', async () => {
     const { user } = open('rm');
     await user.type(screen.getByLabelText('RM de referencia'), '100');
@@ -116,7 +116,7 @@ describe('Strength', () => {
   });
 });
 
-describe('Plate Calculator', () => {
+describe('Calculadora de discos', () => {
   it('suma los discos de ambos lados y respeta el inventario', async () => {
     const { user } = open('discos');
     const add25 = screen.getByRole('button', { name: 'Agregar: discos de 25 kg por lado' });
@@ -163,6 +163,6 @@ describe('Configuración e historial', () => {
     await user.click(screen.getByRole('radio', { name: /Discos/ }));
     expect(screen.queryByText('75 % de 100 kg')).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /^Eliminar: Barra armada a mano/ }));
-    expect(screen.getByText('No hay barras de Plate Calculator guardadas.')).toBeInTheDocument();
+    expect(screen.getByText('No hay barras de Calculadora de discos guardadas.')).toBeInTheDocument();
   });
 });

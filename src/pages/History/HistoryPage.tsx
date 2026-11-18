@@ -20,9 +20,9 @@ const FILTERS: Array<{ id: Filter; label: string }> = [
 
 const EMPTY: Record<Filter, string> = {
   todos: 'Todavía no guardaste cálculos. Guardá uno desde cualquier módulo y aparece acá.',
-  rm: 'No hay cálculos de RM Calculator guardados.',
+  rm: 'No hay cálculos de Calculadora RM guardados.',
   strength: 'No hay tablas de Strength guardadas.',
-  discos: 'No hay barras de Plate Calculator guardadas.',
+  discos: 'No hay barras de Calculadora de discos guardadas.',
 };
 
 export function HistoryPage({ navigate }: { navigate(route: RouteId): void }) {

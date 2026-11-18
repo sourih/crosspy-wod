@@ -13,11 +13,11 @@ interface Props {
 const cell = (selected: boolean) =>
   `num min-h-11 rounded-inner text-body transition-colors ${
     selected
-      ? 'bg-accent-soft font-semibold text-ink outline-[1.5px] -outline-offset-[1.5px] outline-accent'
+      ? 'bg-ink font-semibold text-ground'
       : 'bg-raised font-medium text-ink active:bg-[#363636]'
   }`;
 
-/** Porcentajes rápidos más uno personalizado. El elegido lleva el único acento de la pantalla. */
+/** Porcentajes rápidos más uno personalizado. El elegido se invierte, igual que el selector de barra. */
 export function PercentPicker({ presets, value, onChange }: Props) {
   const isCustom = !presets.includes(value);
   const [customOpen, setCustomOpen] = useState(isCustom);

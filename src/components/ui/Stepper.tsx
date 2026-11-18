@@ -11,7 +11,7 @@ interface Props {
 /** − valor + con botones de 44 px, pensado para el pulgar. */
 export function Stepper({ label, value, min = 0, max, onChange }: Props) {
   const button =
-    'grid size-11 flex-none place-items-center rounded-full bg-raised text-ink transition-colors active:bg-[#363636] disabled:text-control disabled:active:bg-raised';
+    'grid size-11 flex-none place-items-center rounded-full bg-raised text-ink transition-colors active:bg-[#363636] disabled:bg-transparent disabled:text-muted disabled:opacity-50 disabled:outline-1 disabled:-outline-offset-1 disabled:outline-raised';
   return (
     <div className="flex items-center gap-1" role="group" aria-label={label}>
       <button

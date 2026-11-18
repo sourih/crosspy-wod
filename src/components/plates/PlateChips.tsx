@@ -8,7 +8,11 @@ interface Props {
   onRaised?: boolean;
 }
 
-/** Los discos de un lado como fichas: la muestra de cada ficha es el disco, en chico. */
+/*
+ * Los discos de un lado como fichas. Cada peso va dentro de una placa del
+ * color del disco, así se reconoce de un vistazo; los fraccionales son placas
+ * más bajas y con borde, para no confundirlos con el bumper del mismo color.
+ */
 export function PlateChips({ combination, onRaised = false }: Props) {
   if (combination.length === 0) {
     return <p className="text-body text-muted">Sin discos: solo la barra.</p>;
@@ -20,23 +24,24 @@ export function PlateChips({ combination, onRaised = false }: Props) {
         return (
           <li
             key={plate.weight}
-            className={`num inline-flex h-8 flex-none items-center gap-2 rounded-chip px-2.5 text-body whitespace-nowrap ${
-              onRaised ? 'bg-[#383838]' : 'bg-raised'
-            }`}
+            className={`num inline-flex h-9 flex-none items-center gap-1.5 rounded-chip pr-1 text-body whitespace-nowrap ${
+              plate.count > 1 ? 'pl-2.5' : 'pl-1'
+            } ${onRaised ? 'bg-[#383838]' : 'bg-raised'}`}
           >
+            {plate.count > 1 && <span className="text-muted">{plate.count} ×</span>}
             <span
-              aria-hidden
-              className="rounded-[2px]"
+              className={`inline-flex items-center rounded-[4px] font-semibold ${
+                look.thin ? 'h-6 px-1.5 text-small' : 'h-7 px-2'
+              }`}
               style={{
-                width: look.thin ? 4 : 7,
-                height: Math.round(look.height / 6),
                 background: look.fill,
-                boxShadow: look.edge ? `inset 0 0 0 1px ${look.edge}` : undefined,
+                color: look.ink,
+                boxShadow: look.thin
+                  ? `inset 0 0 0 1px ${look.edge ?? 'rgba(0,0,0,0.35)'}`
+                  : undefined,
               }}
-            />
-            <span>
-              {plate.count > 1 && <span className="text-muted">{plate.count} × </span>}
-              <span className="font-medium">{formatKg(plate.weight)}</span>
+            >
+              {formatKg(plate.weight)}
             </span>
           </li>
         );

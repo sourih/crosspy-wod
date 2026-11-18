@@ -22,7 +22,7 @@ Nunca presenta una carga aproximada como si fuera exacta.
 
 ## Funcionalidades
 
-**RM Calculator.** RM de referencia + porcentaje + barra → carga objetivo, peso de discos, peso por
+**Calculadora RM.** RM de referencia + porcentaje + barra → carga objetivo, peso de discos, peso por
 lado, la barra dibujada y todas las combinaciones exactas ordenadas por preferencia.
 
 **Strength.** Un peso de referencia genera la tabla completa de porcentajes. Cada fila muestra el
@@ -30,7 +30,7 @@ objetivo, el peso por lado, la combinación recomendada, cuántas alternativas h
 no existe combinación exacta. Al cambiar el peso o la barra, la tabla se recalcula entera. Los
 porcentajes se agregan, se editan y se quitan.
 
-**Plate Calculator.** Armá la barra a mano con los discos del box y mirá cuánto pesa.
+**Calculadora de discos.** Armá la barra a mano con los discos del box y mirá cuánto pesa.
 
 **Configuración.** Inventario real de cada disco, barras disponibles y porcentajes predeterminados.
 Todo se guarda solo y se puede restaurar.

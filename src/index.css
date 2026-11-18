@@ -105,6 +105,11 @@ body {
   outline-offset: 2px;
 }
 
+/* El campo dibuja el foco en su contenedor; el input no repite el anillo. */
+.field-input:focus-visible {
+  outline: none;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   appearance: none;

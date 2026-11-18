@@ -44,7 +44,7 @@ export function Field({
           enterKeyHint="done"
           aria-invalid={error ? true : undefined}
           aria-describedby={note ? noteId : undefined}
-          className={`num w-full min-w-0 bg-transparent text-ink outline-none placeholder:text-muted ${
+          className={`field-input num w-full min-w-0 bg-transparent text-ink outline-none placeholder:text-muted ${
             size === 'large' ? 'text-figure font-semibold' : 'text-section'
           }`}
           {...rest}

@@ -12,9 +12,9 @@ interface Destination {
 
 const DESTINATIONS: Destination[] = [
   { id: 'inicio', label: 'Inicio', short: 'Inicio', icon: House },
-  { id: 'rm', label: 'RM Calculator', short: 'RM', icon: Percent },
+  { id: 'rm', label: 'Calculadora RM', short: 'RM', icon: Percent },
   { id: 'strength', label: 'Strength', short: 'Strength', icon: Table2 },
-  { id: 'discos', label: 'Plate Calculator', short: 'Discos', icon: Dumbbell },
+  { id: 'discos', label: 'Calculadora de discos', short: 'Discos', icon: Dumbbell },
   { id: 'historial', label: 'Historial', short: 'Historial', icon: History },
   { id: 'ajustes', label: 'Configuración', short: 'Config.', icon: Settings },
 ];
@@ -57,13 +57,13 @@ export function AppShell({ route, children }: Props) {
           </nav>
           <a
             href="#historial"
-            aria-label="Historial"
             aria-current={route === 'historial' ? 'page' : undefined}
-            className={`ml-auto grid size-11 place-items-center rounded-full md:hidden ${
-              route === 'historial' ? 'text-ink' : 'text-muted'
+            className={`ml-auto -mr-2 flex min-h-11 items-center gap-1.5 rounded-full px-2 text-body md:hidden ${
+              route === 'historial' ? 'font-medium text-ink' : 'text-muted'
             }`}
           >
-            <History size={22} aria-hidden />
+            <History size={20} aria-hidden />
+            Historial
           </a>
         </div>
       </header>

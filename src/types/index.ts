@@ -33,7 +33,7 @@ export interface BoxSettings {
   unit: Unit;
   bars: Bar[];
   inventory: InventoryItem[];
-  /** Porcentajes rápidos del RM Calculator. */
+  /** Porcentajes rápidos del Calculadora RM. */
   rmPercentages: PercentTenths[];
   /** Filas de la tabla de Strength. */
   strengthPercentages: PercentTenths[];
@@ -101,7 +101,7 @@ export interface HistoryEntry {
   /** Fecha ISO 8601. */
   date: string;
   type: CalculationType;
-  /** RM o peso de referencia. null en Plate Calculator. */
+  /** RM o peso de referencia. null en Calculadora de discos. */
   reference: Mg | null;
   /** null cuando el cálculo no usa un porcentaje único. */
   percent: PercentTenths | null;

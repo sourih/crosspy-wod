@@ -5,9 +5,8 @@ import { Barbell } from '../../components/plates/Barbell';
 import { PlateChips } from '../../components/plates/PlateChips';
 import { plateLook } from '../../components/plates/plateLook';
 import { Button } from '../../components/ui/Button';
+import { SaveToHistory } from '../../components/calculator/SaveToHistory';
 import { Panel, PanelTitle } from '../../components/ui/Panel';
-import { SavedStamp } from '../../components/ui/SavedStamp';
-import { useStamp } from '../../hooks/useStamp';
 import { Stepper } from '../../components/ui/Stepper';
 import { useAppData } from '../../hooks/appDataContext';
 import { resolveBar } from '../../hooks/useSelectedBar';
@@ -19,7 +18,6 @@ import { formatKg } from '../../utils/weight';
 export function PlateCalculatorPage() {
   const { settings, stock, drafts, updateDraft, addHistory } = useAppData();
   const bar = resolveBar(settings, drafts.discos.barWeight);
-  const [saved, showSaved] = useStamp();
 
   const pairsOf = (weight: number): number =>
     stock.find((plate) => plate.weight === weight)?.pairs ?? 0;
@@ -44,22 +42,24 @@ export function PlateCalculatorPage() {
 
   const save = () => {
     addHistory({ type: 'discos', reference: null, percent: null, target: total, bar: bar.weight });
-    showSaved();
   };
 
   return (
     <>
       <PageHeader
-        title="Plate Calculator"
+        title="Calculadora de discos"
         summary={
           perSideCount === 0
             ? `La barra de ${formatKg(bar.weight)} kg, sin discos.`
             : `Barra de ${formatKg(bar.weight)} kg con ${perSideCount} ${perSideCount === 1 ? 'disco' : 'discos'} por lado.`
         }
       />
-      {/* 12 columnas, separación 14: 7 + 5 */}
+      {/* Una columna: primero el resultado, debajo los discos. */}
       <div className="grid gap-[14px]">
-        <Panel aria-live="polite">
+        <Panel>
+          <p className="sr-only" aria-live="polite">
+            {`Peso total ${formatKg(total)} kilos.`}
+          </p>
           <PanelTitle>Peso total</PanelTitle>
           <p className="num mt-2 text-answer font-semibold text-accent">
             {formatKg(total)}
@@ -73,15 +73,11 @@ export function PlateCalculatorPage() {
           </div>
           <p className="mt-4 mb-2 text-body font-medium">Por lado</p>
           <PlateChips combination={combination} />
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <Button variant="primary" onClick={save}>
-              Guardar en el historial
-            </Button>
+          <SaveToHistory onSave={save}>
             <Button onClick={() => updateDraft('discos', { counts: {} })} disabled={perSideCount === 0}>
               Vaciar la barra
             </Button>
-            <SavedStamp visible={saved}>Guardado</SavedStamp>
-          </div>
+          </SaveToHistory>
         </Panel>
 
         <Panel aria-label="Discos">
@@ -105,6 +101,7 @@ export function PlateCalculatorPage() {
                         width: look.thin ? 5 : 9,
                         height: Math.round(look.height / 3.6),
                         background: look.fill,
+                        boxShadow: look.edge ? `inset 0 0 0 1px ${look.edge}` : undefined,
                       }}
                     />
                   </span>
