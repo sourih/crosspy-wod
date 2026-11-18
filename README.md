@@ -60,7 +60,7 @@ pruebas unitarias, incluida una comparación contra una búsqueda por fuerza bru
 ## Instalación
 
 ```bash
-git clone https://github.com/<tu-usuario>/mbaretefit-wod.git
+git clone https://github.com/sourih/mbaretefit-wod.git
 cd mbaretefit-wod
 npm install
 ```
