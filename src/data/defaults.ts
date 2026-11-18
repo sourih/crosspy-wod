@@ -12,7 +12,6 @@ export const DEFAULT_INVENTORY: InventoryItem[] = [
   { weight: kg(15), kind: 'disco', quantity: 4 },
   { weight: kg(10), kind: 'disco', quantity: 4 },
   { weight: kg(5), kind: 'disco', quantity: 4 },
-  { weight: kg(3), kind: 'fraccional', quantity: 2 },
   { weight: kg(2.5), kind: 'fraccional', quantity: 2 },
   { weight: kg(2), kind: 'fraccional', quantity: 2 },
   { weight: kg(1), kind: 'fraccional', quantity: 2 },

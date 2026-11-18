@@ -48,7 +48,7 @@ describe('validaciones', () => {
     });
     expect(clean.inventory.find((item) => item.weight === kg(25))?.quantity).toBe(0);
     expect(clean.inventory.some((item) => item.weight === kg(7))).toBe(false);
-    expect(clean.inventory).toHaveLength(10);
+    expect(clean.inventory).toHaveLength(9);
     expect(clean.bars.map((bar) => bar.weight)).toEqual([kg(20)]);
     expect(clean.rmPercentages).toEqual([900]);
     expect(clean.strengthPercentages).toEqual(createDefaultSettings().strengthPercentages);

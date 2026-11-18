@@ -231,7 +231,7 @@ describe('precisión decimal', () => {
     const reachable = reachablePerSideWeights(stock);
     expect(reachable[0]).toBe(0);
     expect(reachable.every((weight) => weight % kg(0.5) === 0)).toBe(true);
-    expect(reachable.at(-1)).toBe(kg(159));
+    expect(reachable.at(-1)).toBe(kg(156));
   });
 
   it('cada objetivo de 20 a 338 kg en pasos de 0,5 da un resultado coherente', () => {
