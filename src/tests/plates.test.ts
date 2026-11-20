@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { DEFAULT_INVENTORY } from '../data/defaults';
 import {
   calculateLoad,
@@ -30,13 +30,13 @@ describe('stockFromInventory', () => {
     ]);
   });
 
-  it('ignora cantidades negativas o no numéricas', () => {
+  it('ignora cantidades negativas o no numÃ©ricas', () => {
     expect(stockFromInventory(inventory([[25, -4], [20, Number.NaN]]))).toEqual([]);
   });
 });
 
 describe('calculateLoad: combinaciones exactas', () => {
-  it('resuelve el ejemplo del brief: 75 kg con barra de 20 → 27,5 kg por lado', () => {
+  it('resuelve el ejemplo del brief: 75 kg con barra de 20 â†’ 27,5 kg por lado', () => {
     const result = calculateLoad({ target: kg(75), bar: kg(20), stock });
     expect(result.status).toBe('exact');
     if (result.status !== 'exact') return;
@@ -57,7 +57,7 @@ describe('calculateLoad: combinaciones exactas', () => {
     expect(result).toMatchObject({ status: 'exact', perSide: 0, combinations: [[]] });
   });
 
-  it('todas las combinaciones suman lo mismo y total = barra + 2 × lado', () => {
+  it('todas las combinaciones suman lo mismo y total = barra + 2 Ã— lado', () => {
     const result = calculateLoad({ target: kg(100), bar: kg(20), stock });
     expect(result.status).toBe('exact');
     if (result.status !== 'exact') return;
@@ -75,10 +75,10 @@ describe('calculateLoad: combinaciones exactas', () => {
     expect(new Set(keys).size).toBe(keys.length);
   });
 
-  it('ordena por menos discos y, en empate, por discos más pesados', () => {
+  it('ordena por menos discos y, en empate, por discos mÃ¡s pesados', () => {
     const result = calculateLoad({ target: kg(100), bar: kg(20), stock });
     if (result.status !== 'exact') throw new Error('se esperaba exacta');
-    // 40 por lado: 25+15 y 20+20 usan 2 discos; gana 25+15 por el disco más pesado.
+    // 40 por lado: 25+15 y 20+20 usan 2 discos; gana 25+15 por el disco mÃ¡s pesado.
     expect(side(result.combinations[0]!)).toEqual([[25, 1], [15, 1]]);
     expect(side(result.combinations[1]!)).toEqual([[20, 2]]);
     const sorted = [...result.combinations].sort(compareCombinations);
@@ -87,7 +87,7 @@ describe('calculateLoad: combinaciones exactas', () => {
     expect([...sizes].sort((a, b) => a - b)).toEqual(sizes);
   });
 
-  it('encuentra las mismas combinaciones que una búsqueda por fuerza bruta', () => {
+  it('encuentra las mismas combinaciones que una bÃºsqueda por fuerza bruta', () => {
     const small: PlateStock[] = [
       { weight: kg(10), pairs: 2 },
       { weight: kg(5), pairs: 3 },
@@ -112,7 +112,7 @@ describe('calculateLoad: combinaciones exactas', () => {
     expect(new Set(combinations.map(combinationKey))).toEqual(brute);
   });
 
-  it('avisa cuando hay más combinaciones que el límite y conserva la mejor', () => {
+  it('avisa cuando hay mÃ¡s combinaciones que el lÃ­mite y conserva la mejor', () => {
     const big = stockFromInventory(
       inventory([[25, 20], [20, 20], [15, 20], [10, 20], [5, 20], [2.5, 20], [2, 20], [1, 20], [0.5, 20]]),
     );
@@ -137,7 +137,7 @@ describe('calculateLoad: inventario', () => {
 
   it('respeta la cantidad disponible de cada disco', () => {
     const only = stockFromInventory(inventory([[10, 2], [5, 2]]));
-    // 20 por lado necesitaría dos discos de 10 por lado: hay un solo par.
+    // 20 por lado necesitarÃ­a dos discos de 10 por lado: hay un solo par.
     const result = calculateLoad({ target: kg(60), bar: kg(20), stock: only });
     expect(result.status).toBe('approximate');
     if (result.status !== 'approximate') return;
@@ -153,7 +153,7 @@ describe('calculateLoad: inventario', () => {
     expect(calculateLoad({ target: kg(30), bar: kg(20), stock: pair }).status).toBe('exact');
   });
 
-  it('nunca supera los pares disponibles en ninguna combinación', () => {
+  it('nunca supera los pares disponibles en ninguna combinaciÃ³n', () => {
     const result = calculateLoad({ target: kg(150), bar: kg(20), stock });
     if (result.status !== 'exact') throw new Error('se esperaba exacta');
     for (const combination of result.combinations) {
@@ -164,16 +164,16 @@ describe('calculateLoad: inventario', () => {
     }
   });
 
-  it('con inventario vacío solo se puede cargar la barra', () => {
+  it('con inventario vacÃ­o solo se puede cargar la barra', () => {
     const result = calculateLoad({ target: kg(60), bar: kg(20), stock: [] });
     expect(result).toMatchObject({ status: 'approximate', above: null });
     if (result.status === 'approximate') expect(result.below?.total).toBe(kg(20));
   });
 });
 
-describe('calculateLoad: sin combinación exacta', () => {
-  it('ofrece la carga más cercana por debajo y por encima con su diferencia', () => {
-    // 72,3 kg: (72,3 − 20) / 2 = 26,15 por lado, imposible con discos de 0,5.
+describe('calculateLoad: sin combinaciÃ³n exacta', () => {
+  it('ofrece la carga mÃ¡s cercana por debajo y por encima con su diferencia', () => {
+    // 72,3 kg: (72,3 âˆ’ 20) / 2 = 26,15 por lado, imposible con discos de 0,5.
     const result = calculateLoad({ target: kg(72.3), bar: kg(20), stock });
     expect(result.status).toBe('approximate');
     if (result.status !== 'approximate') return;
@@ -189,7 +189,7 @@ describe('calculateLoad: sin combinación exacta', () => {
     expect(result.status).toBe('approximate');
   });
 
-  it('por encima de la capacidad del box solo hay opción por debajo', () => {
+  it('por encima de la capacidad del box solo hay opciÃ³n por debajo', () => {
     const result = calculateLoad({ target: kg(500), bar: kg(20), stock });
     expect(result.status).toBe('approximate');
     if (result.status !== 'approximate') return;
@@ -206,7 +206,7 @@ describe('calculateLoad: sin combinación exacta', () => {
   });
 });
 
-describe('calculateLoad: entradas inválidas', () => {
+describe('calculateLoad: entradas invÃ¡lidas', () => {
   it('rechaza objetivos por debajo del peso de la barra', () => {
     expect(calculateLoad({ target: kg(15), bar: kg(20), stock })).toMatchObject({
       status: 'invalid',
@@ -221,17 +221,17 @@ describe('calculateLoad: entradas inválidas', () => {
   });
 });
 
-describe('precisión decimal', () => {
+describe('precisiÃ³n decimal', () => {
   it('0,5 + 1 + 2 + 2,5 + 3 por lado suma exactamente 9 kg', () => {
     const result = calculateLoad({ target: kg(38), bar: kg(20), stock });
     expect(result.status).toBe('exact');
   });
 
-  it('todos los pesos alcanzables son múltiplos exactos de 0,5 kg', () => {
+  it('todos los pesos alcanzables son mÃºltiplos exactos de 0,5 kg', () => {
     const reachable = reachablePerSideWeights(stock);
     expect(reachable[0]).toBe(0);
     expect(reachable.every((weight) => weight % kg(0.5) === 0)).toBe(true);
-    expect(reachable.at(-1)).toBe(kg(156));
+    expect(reachable.at(-1)).toBe(kg(157.5));
   });
 
   it('cada objetivo de 20 a 338 kg en pasos de 0,5 da un resultado coherente', () => {
@@ -246,7 +246,7 @@ describe('precisión decimal', () => {
         expect(result.below!.total - target).toBe(result.below!.difference);
         if (result.above) expect(result.above.total).toBeGreaterThan(target);
       } else {
-        throw new Error(`resultado inválido para ${target}`);
+        throw new Error(`resultado invÃ¡lido para ${target}`);
       }
     }
   });

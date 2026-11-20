@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+﻿import { describe, expect, it } from 'vitest';
 import { createDefaultSettings, MAX_HISTORY_ENTRIES, MAX_PLATE_QUANTITY } from '../data/defaults';
 import { createMemoryAdapter } from '../services/storage/adapter';
 import {
@@ -39,7 +39,7 @@ describe('validaciones', () => {
     expect(validateBarWeight('80').ok).toBe(false);
   });
 
-  it('repara una configuración guardada con datos rotos', () => {
+  it('repara una configuraciÃ³n guardada con datos rotos', () => {
     const clean = sanitizeSettings({
       inventory: [{ weight: kg(25), quantity: -8 }, { weight: kg(7), quantity: 10 }],
       bars: [{ weight: kg(20) }, { weight: kg(20) }, { weight: -5 }, 'x'],
@@ -48,7 +48,7 @@ describe('validaciones', () => {
     });
     expect(clean.inventory.find((item) => item.weight === kg(25))?.quantity).toBe(0);
     expect(clean.inventory.some((item) => item.weight === kg(7))).toBe(false);
-    expect(clean.inventory).toHaveLength(9);
+    expect(clean.inventory).toHaveLength(10);
     expect(clean.bars.map((bar) => bar.weight)).toEqual([kg(20)]);
     expect(clean.rmPercentages).toEqual([900]);
     expect(clean.strengthPercentages).toEqual(createDefaultSettings().strengthPercentages);
@@ -56,7 +56,7 @@ describe('validaciones', () => {
 });
 
 describe('repositorios', () => {
-  it('guarda, recupera y restaura la configuración', () => {
+  it('guarda, recupera y restaura la configuraciÃ³n', () => {
     const adapter = createMemoryAdapter();
     const repository = createSettingsRepository(adapter);
     expect(repository.load()).toEqual(createDefaultSettings());
@@ -81,7 +81,7 @@ describe('repositorios', () => {
     expect(createDraftsRepository(adapter).load().rm.percent).toBe(750);
   });
 
-  it('agrega al historial lo más nuevo primero, y permite borrar', () => {
+  it('agrega al historial lo mÃ¡s nuevo primero, y permite borrar', () => {
     const adapter = createMemoryAdapter();
     let clock = Date.parse('2026-11-10T12:00:00Z');
     const repository = createHistoryRepository(adapter, () => new Date((clock += 60_000)));
